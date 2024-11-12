@@ -1,12 +1,15 @@
 ﻿using Microsoft.EntityFrameworkCore;
 using Microsoft.Extensions.DependencyInjection;
 using RFB.Data;
+using Vereyon.Web;
 var builder = WebApplication.CreateBuilder(args);
 builder.Services.AddDbContext<RFBContext>(options =>
     options.UseSqlServer(builder.Configuration.GetConnectionString("RFBContext") ?? throw new InvalidOperationException("Connection string 'RFBContext' not found.")));
 
 // Add services to the container.
 builder.Services.AddControllersWithViews();
+
+builder.Services.AddFlashMessage();
 
 var app = builder.Build();
 

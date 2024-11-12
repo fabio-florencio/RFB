@@ -23,12 +23,6 @@
                             <a class="nav-link text-dark" asp-area="" asp-controller="Home" asp-action="Index">Home</a>
                         </li>
                         <li class="nav-item">
-                            <a class="nav-link text-dark" asp-area="" asp-controller="Home" asp-action="Privacy">Privacy</a>
-                        </li>
-                        <li class="nav-item">
-                            <a class="nav-link text-dark" asp-area="" asp-controller="Apoio" asp-action="Index">Apoio</a>
-                        </li>
-                        <li class="nav-item">
                             <a class="nav-link text-dark" asp-area="" asp-controller="Cnaes" asp-action="Index">Cnaes</a>
                         </li>
                         <li class="nav-item">
@@ -44,6 +38,7 @@
     </header>
     <div class="container">
         <main role="main" class="pb-3">
+            <flash dismissable="true" />
             @RenderBody()
         </main>
     </div>

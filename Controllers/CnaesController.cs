@@ -7,16 +7,19 @@ using Microsoft.AspNetCore.Mvc.Rendering;
 using Microsoft.EntityFrameworkCore;
 using RFB.Data;
 using RFB.Models;
+using Vereyon.Web;
 
 namespace RFB.Controllers
 {
     public class CnaesController : Controller
     {
         private readonly RFBContext _context;
+        private readonly IFlashMessage _flashMessage;
 
-        public CnaesController(RFBContext context)
+        public CnaesController(RFBContext context, IFlashMessage flashMessage)
         {
             _context = context;
+            _flashMessage = flashMessage;
         }
 
         // GET: Cnaes
@@ -58,9 +61,17 @@ namespace RFB.Controllers
         {
             if (ModelState.IsValid)
             {
-                _context.Add(cnae);
-                await _context.SaveChangesAsync();
-                return RedirectToAction(nameof(Index));
+                try
+                {
+                    _context.Add(cnae);
+                    await _context.SaveChangesAsync();
+                    return RedirectToAction(nameof(Index));
+                }
+                catch (Exception ex)
+                {
+                    _flashMessage.Danger($"Erro: {ex.Message}");
+                    return View(cnae);
+                }
             }
             return View(cnae);
         }
